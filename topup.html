@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Form Top Up</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .form-container {
+      max-width: 500px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #28a745;
+      color: white;
+      border: none;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #218838;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Form Top Up <span id="gameName">Game</span></h2>
+
+    <form id="topupForm">
+      <label for="userID">ID Game:</label>
+      <input type="text" id="userID" required>
+
+      <label for="server">Server (opsional):</label>
+      <input type="text" id="server">
+
+      <label for="nominal">Nominal Top Up:</label>
+      <select id="nominal" required>
+        <option value="">-- Pilih --</option>
+        <option value="10">10 Diamonds</option>
+        <option value="50">50 Diamonds</option>
+        <option value="100">100 Diamonds</option>
+      </select>
+
+      <label for="payment">Metode Pembayaran:</label>
+      <select id="payment" required>
+        <option value="">-- Pilih --</option>
+        <option value="dana">DANA</option>
+        <option value="gopay">GoPay</option>
+        <option value="ovo">OVO</option>
+      </select>
+
+      <button type="submit">Kirim Pesanan</button>
+    </form>
+
+    <div id="successMsg" style="display:none; margin-top:20px; background:#d4edda; padding:15px; border-radius:8px;">
+      Pesanan berhasil dikirim! Silakan lanjutkan pembayaran.
+    </div>
+  </div>
+
+  <script>
+    const queryParams = new URLSearchParams(window.location.search);
+    const gameCode = queryParams.get('game');
+    const gameNames = {
+      ml: "Mobile Legends",
+      ff: "Free Fire",
+      pubg: "PUBG Mobile",
+      genshin: "Genshin Impact"
+    };
+    document.getElementById("gameName").innerText = gameNames[gameCode] || "Game";
+
+    document.getElementById("topupForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      document.getElementById("successMsg").style.display = "block";
+      this.reset();
+    });
+  </script>
+
+</body>
+</html>
